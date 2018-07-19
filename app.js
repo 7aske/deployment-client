@@ -15,8 +15,8 @@ const axios_1 = require("axios");
 // if (program.update) console.log('update');
 // if (program.run) console.log('run');
 // if (program.find) console.log('find');
-const serverUrl = 'http://deployment-a7aske.c9users.io';
-//const serverUrl = 'http://localhost:3000';
+//const serverUrl = 'http://deployment-a7aske.c9users.io';
+const serverUrl = 'http://localhost:3000';
 program
     .version('0.1.0')
     .command('deploy <repo>')
