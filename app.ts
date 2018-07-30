@@ -75,12 +75,12 @@ program
 	});
 program
 	.version('0.1.0')
-	.command('clear [name]')
-	.action(name => {
+	.command('remove [repo]')
+	.action(repo => {
 		execute({
-			path: 'clear',
+			path: 'remove',
 			data: {
-				query: name
+				query: repo
 			}
 		});
 	});
