@@ -1,7 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const program = require("commander");
-const axios_1 = require("axios");
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const program = require('commander');
+const axios_1 = require('axios');
 // program
 // 	.version('0.1.0')
 // 	.option('-d, --deploy <repo>', 'Deploy')
@@ -18,80 +18,93 @@ const axios_1 = require("axios");
 //const serverUrl = 'http://deployment-a7aske.c9users.io';
 const serverUrl = 'http://localhost:3000';
 program
-    .version('0.1.0')
-    .command('deploy <repo>')
-    .action(repo => {
-    execute({
-        path: 'deploy',
-        data: {
-            repository: repo
-        }
-    });
-});
+	.version('0.1.0')
+	.command('deploy <repo>')
+	.action(repo => {
+		execute({
+			path: 'deploy',
+			data: {
+				query: repo
+			}
+		});
+	});
+
 program
-    .version('0.1.0')
-    .command('kill [name]')
-    .action(name => {
-    execute({
-        path: 'kill',
-        data: {
-            query: name
-        }
-    });
-});
+	.version('0.1.0')
+	.command('update [name]')
+	.action(name => {
+		execute({
+			path: 'update',
+			data: {
+				query: name
+			}
+		});
+	});
 program
-    .version('0.1.0')
-    .command('update [name]')
-    .action(name => {
-    execute({
-        path: 'update',
-        data: {
-            query: name
-        }
-    });
-});
+	.version('0.1.0')
+	.command('run [name]')
+	.action(name => {
+		execute({
+			path: 'run',
+			data: {
+				query: name
+			}
+		});
+	});
 program
-    .version('0.1.0')
-    .command('run [name]')
-    .action(name => {
-    execute({
-        path: 'run',
-        data: {
-            query: name
-        }
-    });
-});
+	.version('0.1.0')
+	.command('kill [name]')
+	.action(name => {
+		execute({
+			path: 'kill',
+			data: {
+				query: name
+			}
+		});
+	});
 program
-    .version('0.1.0')
-    .command('find [name]')
-    .action(name => {
-    execute({
-        path: 'find',
-        data: {
-            query: name
-        }
-    });
-});
+	.version('0.1.0')
+	.command('remove [name]')
+	.action(name => {
+		execute({
+			path: 'remove',
+			data: {
+				query: name
+			}
+		});
+	});
 program
-    .version('0.1.0')
-    .command('clear [name]')
-    .action(name => {
-    execute({
-        path: 'clear',
-        data: {
-            query: name
-        }
-    });
-});
+	.version('0.1.0')
+	.command('find [name]')
+	.action(name => {
+		execute({
+			path: 'find',
+			data: {
+				query: name
+			}
+		});
+	});
+program
+	.version('0.1.0')
+	.command('clear [name]')
+	.action(name => {
+		execute({
+			path: 'clear',
+			data: {
+				query: name
+			}
+		});
+	});
 function execute(payload) {
-    axios_1.default({
-        method: 'post',
-        url: `${serverUrl}/${payload.path}`,
-        data: payload.data
-    })
-        .then(function (response) {
-        console.log(response.data);
-    })
-        .catch(err => console.log(err));
+	axios_1
+		.default({
+			method: 'post',
+			url: `${serverUrl}/${payload.path}`,
+			data: payload.data
+		})
+		.then(function(response) {
+			console.log(response.data);
+		})
+		.catch(err => console.log(err));
 }
 program.parse(process.argv);
