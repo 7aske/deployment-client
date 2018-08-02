@@ -99,6 +99,17 @@ program
 			}
 		});
 	});
+program
+	.version('0.1.0')
+	.command('updater')
+	.action(name => {
+		execute({
+			path: 'updater',
+			data: {
+				query: null
+			}
+		});
+	});
 function execute(payload) {
 	const serverUrl = JSON.parse(fs.readFileSync(configFile, 'utf8')).defaultServerUrl;
 	console.log('Sending requests to ' + serverUrl);
