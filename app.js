@@ -138,6 +138,7 @@ function updateDefaultServer(inputServer, inputPort) {
 	if (server.length > 0) {
 		const oldConfigFile = JSON.parse(fs.readFileSync(configFile, 'utf8'));
 		oldConfigFile.defaultServerUrl = server;
+		oldConfigFile.defaultWrapperUrl = wrapper;
 		fs.writeFileSync(configFile, JSON.stringify(oldConfigFile), 'utf8');
 		console.log('Default server set to ' + server);
 		console.log('Default wrapper set to ' + wrapper);
