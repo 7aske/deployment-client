@@ -8,8 +8,9 @@ const configFile = path.join(process.cwd(), 'config/config.json');
 program
 	.version('0.1.0')
 	.command('server [server]')
-	.action(server => {
-		updateDefaultServer(server);
+	.option('-p, --port [port]', 'Default port')
+	.action((server, options) => {
+		updateDefaultServer(server, options.port || 3000);
 	});
 program
 	.version('0.1.0')
@@ -103,12 +104,7 @@ program
 	.version('0.1.0')
 	.command('updater')
 	.action(name => {
-		execute({
-			path: 'updater',
-			data: {
-				query: null
-			}
-		});
+		update();
 	});
 function execute(payload) {
 	const serverUrl = JSON.parse(fs.readFileSync(configFile, 'utf8')).defaultServerUrl;
@@ -124,12 +120,27 @@ function execute(payload) {
 		})
 		.catch(err => console.log(err));
 }
-function updateDefaultServer(server) {
+function update() {
+	const wrapper = JSON.parse(fs.readFileSync(configFile, 'utf8')).defaultWrapperUrl;
+	console.log('Sending requests to ' + wrapper);
+	axios_1
+		.default({
+			method: 'post',
+			url: wrapper
+		})
+		.then(response => console.log(response.data))
+		.catch(err => console.log(err));
+}
+function updateDefaultServer(inputServer, inputPort) {
+	const port = parseInt(inputPort);
+	const server = `http://${inputServer}:${inputPort}`;
+	const wrapper = `http://${inputServer}:${inputPort - 1}`;
 	if (server.length > 0) {
 		const oldConfigFile = JSON.parse(fs.readFileSync(configFile, 'utf8'));
 		oldConfigFile.defaultServerUrl = server;
 		fs.writeFileSync(configFile, JSON.stringify(oldConfigFile), 'utf8');
 		console.log('Default server set to ' + server);
+		console.log('Default wrapper set to ' + wrapper);
 	} else {
 		throw new Error('Invalid Argument');
 	}
